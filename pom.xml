@@ -24,6 +24,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>${project.artifactId}</finalName>
     </build>
     <packaging>war</packaging>
 

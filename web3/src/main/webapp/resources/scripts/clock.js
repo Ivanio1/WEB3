@@ -17,7 +17,7 @@ function changeTime(container) {
     let day = (date.getDate() < 10 ? '0' : '') + date.getDate();
     let month = (date.getMonth() < 9) ? '0' + date.getMonth()+1 : date.getMonth() + 1;
     let year = date.getFullYear();
-    container.innerHTML = `<p>Текущее время: ${hours}:${minutes}:${seconds}</p><p>Текущее дата: ${day}-${month}-${year}</p><p>Updating every 13 seconds</p>`;
+    container.innerHTML = `<p>Current time: ${hours}:${minutes}:${seconds}</p><p>Current date: ${day}-${month}-${year}</p><p>Updating every 13 seconds</p>`;
 
 }
 function fillCanvas(name, width, height) {
@@ -140,11 +140,3 @@ paintClocks()
 setInterval(() => {
     paintClocks();
 }, 13000);
-
-function addHover() {
-    $("canvas").hover(function () {
-        $(this).attr("title", new Date().toLocaleString());
-    }, function () {
-        $(this).attr("title", new Date().toLocaleString());
-    });
-}

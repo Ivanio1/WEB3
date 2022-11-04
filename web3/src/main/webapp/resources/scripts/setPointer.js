@@ -64,14 +64,15 @@ function clickPlotHandler(e) {
     let yValue = getYFromSVG(y, getRValue()).toFixed(2);
 
     let date = new Date();
-    let hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-    let minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-    let seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-    let day = (date.getDate() < 10 ? '0' : '') + date.getDate();
-    let month = (date.getMonth() < 9) ? '0' + date.getMonth()+1 : date.getMonth() + 1;
-    let year = date.getFullYear();
-    let timeValue = `${hours}:${minutes}:${seconds} ${day}-${month}-${year}`;
+    let hours = date.getUTCHours() < 10 ? "0" + date.getUTCHours() : date.getUTCHours();
+    let minutes = date.getUTCMinutes() < 10 ? "0" + date.getUTCMinutes() : date.getUTCMinutes();
+    let seconds = date.getUTCSeconds() < 10 ? "0" + date.getUTCSeconds() : date.getUTCSeconds();
+    let day = (date.getUTCDate() < 10 ? '0' : '') + date.getUTCDate();
+    let month = (date.getUTCMonth() < 9) ? '0' + date.getUTCMonth() + 1 : date.getUTCMonth() + 1;
+    let year = date.getUTCFullYear();
 
+    let timeValue = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.000Z`;
+   // let example = new Date(date.getTime() + date.getTimezoneOffset() * 1000)
     $(".x-hidden").val(xValue);
     $(".y-hidden").val(yValue);
     $(".r-hidden").val(getRValue());
@@ -79,6 +80,12 @@ function clickPlotHandler(e) {
     $(".hidden-submit-btn").click();
 
 }
+function changeOffset(){
+    let date = new Date();
+    $(".offset-hidden").val(date.getTimezoneOffset());
+}
+
+setInterval(() => changeOffset(), 1);
 
 
 $("svg").click(clickPlotHandler)

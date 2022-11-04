@@ -67,7 +67,7 @@
             <div class="form">
                 <h:form id="form">
                     <div class="x-value">
-                        <p>Выберите X:</p>
+                        <p>Choose X:</p>
                         <h:inputText styleClass="my-input" style="color: black"
                                      id="x" name="x" value="#{pointsBean.pointField.x}" a:placeholder="Value in [-5..5]"
                                      converterMessage="X must be number..."
@@ -80,7 +80,7 @@
                         <div class="invalid-y d-none h5" style="color: red"></div>
                     </div>
                     <div class="y-value">
-                        <p>Выберите Y:</p>
+                        <p>Choose Y:</p>
                         <h:selectOneRadio id="y"
                                           value="#{pointsBean.pointField.y}"
                                           required="true"
@@ -99,7 +99,7 @@
 
                     </div>
                     <div class="r-value">
-                        <p>Выберите R:</p>
+                        <p>Choose R:</p>
                         <h:inputText styleClass="my-input" style="color: black"
                                      id="R-field" name="r" value="#{pointsBean.pointField.r}"
                                      a:placeholder="Value in [2..5]"
@@ -112,16 +112,24 @@
                         </h:inputText>
                         <h:message id="message-r" for="R-field" style="color: red"/>
                         <div class="invalid-y d-none h5" style="color: red"></div>
-                        <h:inputText styleClass="time" value="#{pointsBean.pointField.curr_time}" style="display: none"/>
+                        <h:inputText styleClass="time" value="#{pointsBean.pointField.curr_time}"
+                                     style="color: black; display: none"/>
                     </div>
                     <br/>
                     <div>
-                        <h:commandButton styleClass="my-button" type="submit" value="Set R and submit" id="submit-button" onclick="clickSubmitButton()">
+
+                        <h:commandButton styleClass="my-button" type="submit" value="Submit" id="submit-button"
+                                         style=""
+                                         onmouseup="clickSubmitButton()" onmousedown="offset()">
                         </h:commandButton>
+
+
+
                         <h:commandButton
                                 style="display: none"
                                 type="submit"
                                 styleClass="hidden-submit-button"
+
                                 action="#{pointsBean.submitFieldPoints}"
                         />
                         <h:commandButton
@@ -145,11 +153,14 @@
             </div>
 
             <div class="hiddenForm" style="display: none">
-                <h:form >
+                <h:form>
                     <h:inputText styleClass="x-hidden" value="#{pointsBean.pointGraphic.x}" style="color: black"/>
                     <h:inputText styleClass="y-hidden" value="#{pointsBean.pointGraphic.y}" style="color: black"/>
                     <h:inputText styleClass="r-hidden" value="#{pointsBean.pointGraphic.r}" style="color: black"/>
-                    <h:inputText styleClass="time-hidden" id="time-hidden" value="#{pointsBean.pointGraphic.curr_time}" style="color: black"/>
+                    <h:inputText styleClass="time-hidden" id="time-hidden" value="#{pointsBean.pointGraphic.curr_time}"
+                                 style="color: black"/>
+                    <h:inputText styleClass="offset-hidden" id="offset-hidden" value="#{pointsBean.offset}"
+                                 onclick="offset()" style="color: black"/>
                     <h:commandButton
                             type="submit"
                             styleClass="hidden-submit-btn"
@@ -158,7 +169,6 @@
                 </h:form>
             </div>
         </div>
-
         <div class="table">
             <div>Results</div>
             <h:dataTable id="result-table" value="#{pointsBean.pointsCollection}" var="point">
@@ -167,7 +177,6 @@
                     <f:facet name="header">X</f:facet>
                     ${point.x}
                 </h:column>
-
                 <h:column>
                     <f:facet name="header">Y</f:facet>
                     ${point.y}
@@ -182,12 +191,14 @@
                     <f:facet name="header">Result</f:facet>
                     ${point.result ? "Hit" : "None"}
                 </h:column>
+
                 <h:column>
-                    <f:facet name="header">Current time</f:facet>
-                    ${point.curr_time}
+                    <f:facet name="header" id="final_time" style="">Current time</f:facet>
+                    ${pointsBean.getDateOffset(pointsBean.offset,point.curr_time)}
                 </h:column>
+
                 <h:column>
-                    <f:facet name="header">Execute time(ns)</f:facet>
+                    <f:facet name="header">Execute time(mcs)</f:facet>
                     ${point.ex_time}
                 </h:column>
             </h:dataTable>
