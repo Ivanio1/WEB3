@@ -80,7 +80,7 @@ public class PointsBean implements Serializable {
     @SneakyThrows
     private void addPointWithCalculatedResultToDatabase(Point point) {
         long startTime = (System.nanoTime());
-        long ss = (long) (System.nanoTime() - startTime + Math.random() * 100);
+        long ss = (long) (System.nanoTime() - startTime);
         try{
             String elatedTime = String.valueOf(ss).substring(0, 3);
             point.setEx_time(elatedTime);
